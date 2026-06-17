@@ -97,3 +97,18 @@ body {
 iframe.videoLayer {
   border: 0;
 }
+
+.mediaControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.mediaControls button {
+  font-size: 12px;
+  padding: 4px 6px;
+}
+
+.videoLayer {
+  transform-origin: center center;
+}

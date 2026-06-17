@@ -8,6 +8,9 @@ export default function App() {
       name: "Surface 1",
       video: null,
       youtube: null,
+      mediaScale: 1,
+      mediaX: 0,
+      mediaY: 0,
       youtubeInput: "",
       urlInput: "",
       points: [
@@ -28,6 +31,9 @@ export default function App() {
         name: `Surface ${n + 1}`,
         video: null,
         youtube: null,
+        mediaScale: 1,
+        mediaX: 0,
+        mediaY: 0,
         youtubeInput: "",
         urlInput: "",
         points: [
@@ -124,6 +130,16 @@ export default function App() {
             </label>
 
             <button onClick={() => loadYouTube(i)}>Load YouTube</button>
+
+            <div className="mediaControls">
+              <button onClick={() => updateSurface(i, { mediaScale: s.mediaScale * 1.1 })}>Zoom +</button>
+              <button onClick={() => updateSurface(i, { mediaScale: s.mediaScale * 0.9 })}>Zoom -</button>
+              <button onClick={() => updateSurface(i, { mediaX: s.mediaX - 20 })}>←</button>
+              <button onClick={() => updateSurface(i, { mediaX: s.mediaX + 20 })}>→</button>
+              <button onClick={() => updateSurface(i, { mediaY: s.mediaY - 20 })}>↑</button>
+              <button onClick={() => updateSurface(i, { mediaY: s.mediaY + 20 })}>↓</button>
+              <button onClick={() => updateSurface(i, { mediaScale: 1, mediaX: 0, mediaY: 0 })}>Reset Media</button>
+            </div>
           </div>
         ))}
       </div>
@@ -180,6 +196,9 @@ export default function App() {
                   <iframe
                     src={surface.youtube}
                     className="videoLayer"
+                    style={{
+                      transform: `translate(${surface.mediaX}px, ${surface.mediaY}px) scale(${surface.mediaScale})`
+                    }}
                     allow="autoplay; encrypted-media; picture-in-picture"
                     allowFullScreen
                   />
@@ -191,6 +210,9 @@ export default function App() {
                     loop
                     playsInline
                     className="videoLayer"
+                    style={{
+                      transform: `translate(${surface.mediaX}px, ${surface.mediaY}px) scale(${surface.mediaScale})`
+                    }}
                   />
                 ) : (
                   <div className="mappedGrid">{surface.name}</div>
